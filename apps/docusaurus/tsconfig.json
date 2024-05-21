@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        // inline @tsconfig/docusaurus/tsconfig.json awaiting TS5
+        "allowJs": true,
+        "esModuleInterop": true,
+        "jsx": "react",
+        "lib": ["DOM"],
+        "module": "esnext",
+        //"moduleResolution": "bundler",
+        //"noEmit": true,
+        "types": ["node", "@docusaurus/module-type-aliases", "@docusaurus/theme-classic"],
+        //"baseUrl": ".",
+        "paths": {
+            "@site/*": ["./*"]
+        },
+        "skipLibCheck": true,
+        // /inline
+        "baseUrl": ".",
+        "moduleResolution": "node",
+        //        "jsx": "react",
+        //        "allowSyntheticDefaultImports": true,
+        "declaration": true,
+        "noEmit": false
+    }
+}

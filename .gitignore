@@ -1,0 +1,10 @@
+.idea
+
+bazel-testlogs
+bazel-bin
+bazel-out
+bazel-rules_js_alpha_test
+
+MODULE.bazel.lock
+
+node_modules

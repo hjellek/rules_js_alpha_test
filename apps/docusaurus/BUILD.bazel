@@ -1,0 +1,76 @@
+package(default_visibility = ["//apps/team-smart-utvikling/fremtind-basecamp-frontend:__subpackages__"])
+
+load("@aspect_rules_js//js:defs.bzl", "js_library", "js_run_devserver")
+load("@npm//apps/docusaurus:@docusaurus/core/package_json.bzl", docusaurus = "bin")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+npm_link_all_packages()
+
+BASECAMP_DEPS = [
+    ":docusaurus_config",
+    "package.json",
+    "tsconfig.json",
+    ":node_modules/@docusaurus/core",
+    ":node_modules/@mdx-js",
+    ":node_modules/@fremtind",
+    ":node_modules/react",
+    ":node_modules/react-dom",
+    ":node_modules/@docusaurus/preset-classic",
+    ":node_modules/@docusaurus/theme-common",
+    ":node_modules/@docusaurus/module-type-aliases",
+    ":node_modules/clsx",
+    "i18n/en/code.json",
+    "docs/index.mdx",
+]
+
+js_library(
+    name = "docusaurus_config",
+    srcs = [
+        "docusaurus.config.js",
+    ],
+    deps = [
+        ":node_modules/@docusaurus/core",
+        ":node_modules/@docusaurus/theme-classic",
+        ":node_modules/@docusaurus/theme-common",
+        ":node_modules/prism-react-renderer",
+        ":node_modules/react",
+        ":node_modules/react-dom",
+    ],
+)
+
+docusaurus.docusaurus_binary(name = "docusaurus_bin")
+
+docusaurus.docusaurus(
+    name = "app",
+    srcs = BASECAMP_DEPS,
+    args = ["build"],
+    chdir = package_name(),
+    out_dirs = ["build"],
+    tags = ["app"],
+)
+
+js_run_devserver(
+    name = "start",
+    args = ["start"],
+    chdir = package_name(),
+    data = BASECAMP_DEPS,
+    tool = ":docusaurus_bin",
+)
+
+docusaurus.docusaurus_binary(
+    name = "serve",
+    args = ["serve"],
+    chdir = package_name(),
+    data = [
+        "docusaurus_config",
+        "package.json",
+        ":app",
+    ],
+)
+
+docusaurus.docusaurus_binary(
+    name = "clear",
+    args = ["clear"],
+    chdir = package_name(),
+    data = BASECAMP_DEPS,
+)
