@@ -1,1 +1,6 @@
-{}
+{
+  "theme.NotFound.title": {
+    "message": "Fant ikke siden",
+    "description": "The title of the 404 page"
+  }
+}

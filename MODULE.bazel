@@ -1,6 +1,6 @@
 "Bazel dependencies"
 
-bazel_dep(name = "aspect_rules_js", version = "2.0.0-alpha.7", dev_dependency = True)
+bazel_dep(name = "aspect_rules_js", version = "2.0.0-rc0")
 
 npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
 npm.npm_translate_lock(
