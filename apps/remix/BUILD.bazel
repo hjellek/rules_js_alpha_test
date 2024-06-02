@@ -1,0 +1,66 @@
+load("@npm//apps/remix:@remix-run/dev/package_json.bzl", remix_dev = "bin")
+load("@npm//apps/remix:@remix-run/serve/package_json.bzl", remix_serve = "bin")
+load("@aspect_rules_js//js:defs.bzl", "js_image_layer", "js_run_devserver")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+npm_link_all_packages()
+
+remix_dev.remix_binary(name = "remix_bin")
+
+remix_serve.remix_serve_binary(name = "remix_serve_bin")
+
+DEPS = [
+    ":node_modules/react",
+    ":node_modules/react-dom",
+    ":node_modules/@remix-run/serve",
+    ":node_modules/@remix-run/node",
+    ":node_modules/@remix-run/react",
+    ":node_modules/isbot",
+    "//apps/remix/app",
+]
+
+DEV_DEPS = [
+    ":node_modules/@remix-run/dev",
+    ":node_modules/vite",
+    ":node_modules/vite-tsconfig-paths",
+    "package.json",
+    "vite.config.mts",
+    "env.d.ts",
+    "tsconfig.json",
+]
+
+remix_dev.remix(
+    name = "build",
+    srcs = glob([
+        "public/**",
+    ]) + DEV_DEPS + DEPS,
+    args = ["vite:build"],
+    chdir = package_name(),
+    out_dirs = [
+        "build",
+    ],
+)
+
+js_run_devserver(
+    name = "dev",
+    args = [
+        "vite:dev --manual",
+    ],
+    chdir = package_name(),
+    command = "./node_modules/.bin/remix",
+    data = glob([
+        "public/**",
+    ]) + DEPS + DEV_DEPS,
+)
+
+remix_serve.remix_serve_binary(
+    name = "start",
+    args = [
+        "build/server/index.js",
+    ],
+    chdir = package_name(),
+    data = DEPS + [
+        ":app",
+        ":package.json",
+    ],
+)

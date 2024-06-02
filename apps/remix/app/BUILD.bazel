@@ -1,0 +1,15 @@
+package(default_visibility = ["//apps/remix:__subpackages__"])
+
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+
+SRC_PATTERNS = [
+    "**/*.tsx",
+]
+
+js_library(
+    name = "app",
+    srcs = glob(SRC_PATTERNS),
+    deps = [
+        "//apps/remix:node_modules/@remix-run/react",
+    ],
+)

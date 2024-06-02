@@ -1,0 +1,5 @@
+node_modules
+apps/docusaurus/node_modules
+apps/package-override/node_modules
+apps/package-dep-override/node_modules
+apps/remix/node_modules
