@@ -7,7 +7,7 @@ vite_bin.vite(
     name = "app",
     srcs = [
         "index.html",
-        "index.jsx",
+        "index.js",
         ":node_modules",
     ],
     args = [

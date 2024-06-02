@@ -3,6 +3,6 @@
 
   },
   "pnpm": {
-    "onlyBuildDependencies": []
+	"onlyBuiltDependencies": []
   }
 }
