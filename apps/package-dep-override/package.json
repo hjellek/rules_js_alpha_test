@@ -1,0 +1,6 @@
+{
+  "name": "package-dep-override",
+  "dependencies": {
+    "local-lpad": "npm:lpad@3.0.0"
+  }
+}

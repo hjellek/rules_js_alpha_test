@@ -1,0 +1,24 @@
+load("@npm//apps/package-override:vite/package_json.bzl", vite_bin = "bin")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@aspect_rules_js//npm:defs.bzl", "npm_package")
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+
+npm_link_all_packages()
+
+js_library(
+    name = "js_src",
+    srcs = ["index.js"],
+    deps = [
+        ":node_modules/local-lpad",
+    ],
+)
+
+npm_package(
+    name = "pkg",
+    srcs = [":js_src"],
+    package = "package-dep-override",
+    root_paths = [
+        package_name(),
+    ],
+    visibility = ["//visibility:public"],
+)
