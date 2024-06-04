@@ -41,7 +41,7 @@ js_library(
 docusaurus.docusaurus_binary(name = "docusaurus_bin")
 
 docusaurus.docusaurus(
-    name = "app",
+    name = "build",
     srcs = BASECAMP_DEPS,
     args = ["build"],
     chdir = package_name(),
