@@ -64,7 +64,7 @@ docusaurus.docusaurus_binary(
     data = [
         "docusaurus_config",
         "package.json",
-        ":app",
+        ":build",
     ],
 )
 
